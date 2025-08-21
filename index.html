@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Login & Registrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .illustration {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            padding: 0;
+            text-align: center;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .form-title {
+            color: #f97316;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #f97316;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f97316;
+            font-size: 18px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #f97316;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ea580c;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
+        }
+
+        .switch-form a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="illustration">
+            <!-- Video YouTube dengan autoplay -->
+            <div class="video-container" id="videoContainer" style="display: none;">
+                <iframe 
+                    id="youtubeVideo"
+                    src="https://www.youtube.com/embed/ic-35LRmeNw?autoplay=0&mute=1&loop=1&playlist=ic-35LRmeNw&controls=1&modestbranding=1&rel=0&enablejsapi=1"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    loading="lazy">
+                </iframe>
+                </iframe>
+            </div>
+            
+            <!-- Fallback: Gambar jika video tidak bisa dimuat -->
+            <img 
+                id="fallbackImage" 
+                src="#" 
+                alt="Background" 
+                class="background-image show">
+        </div>
+
+        <!-- Form Login -->
+        <div id="loginForm" class="form-container">
+            <h2 class="form-title">Selamat Datang!</h2>
+            <p class="form-subtitle">Silahkan masuk untuk memulai aplikasi.</p>
+
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" class="form-input" placeholder="Masukkan Email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" class="form-input" placeholder="Masukkan Password" required>
+                        <span class="password-toggle" onclick="togglePassword(this)">👁️</span>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" onclick="showForgotPassword()">Lupa password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Masuk</button>
+            </form>
+
+            <div class="switch-form">
+                Belum punya akun? <a href="#" onclick="showRegisterForm()">Daftar</a>
+            </div>
+        </div>
+
+        <!-- Form Register -->
+        <div id="registerForm" class="form-container hidden">
+            <h2 class="form-title">Pendaftaran Akun</h2>
+            <p class="form-subtitle">Buat akun baru untuk memulai.</p>
+
+            <form id="registerFormElement">
+                <div class="form-group">
+                    <label class="form-label">Nama Lengkap</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" class="form-input" placeholder="Masukkan Nama Lengkap" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" class="form-input" placeholder="Masukkan Email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" class="form-input" placeholder="Masukkan Password" required>
+                        <span class="password-toggle" onclick="togglePassword(this)">👁️</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Buat Akun</button>
+            </form>
+
+            <div class="switch-form">
+                Sudah punya akun? <a href="#" onclick="showLoginForm()">Masuk</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const videoContainer = document.getElementById('videoContainer');
+        const youtubeVideo = document.getElementById('youtubeVideo');
+        const fallbackImage = document.getElementById('fallbackImage');
+        const illustration = document.querySelector('.illustration');
+
+        // Function to check if video is available
+        function checkVideoAvailability() {
+            const iframe = document.getElementById('youtubeVideo');
+            
+            // Create a test to see if iframe loads
+            iframe.onload = function() {
+                console.log('Video loaded successfully');
+                setTimeout(() => {
+                    // Check if iframe has content
+                    try {
+                        if (iframe.contentDocument || iframe.contentWindow) {
+                            showVideo();
+                        } else {
+                            console.log('Video blocked or restricted');
+                            showImage();
+                        }
+                    } catch (e) {
+                        // Cross-origin restriction means video is likely loading
+                        console.log('Video loading (cross-origin)');
+                        showVideo();
+                    }
+                }, 1000);
+            };
+            
+            iframe.onerror = function() {
+                console.log('Video failed to load');
+                showImage();
+            };
+            
+            // Fallback timeout - if nothing happens in 5 seconds, show image
+            setTimeout(() => {
+                if (videoContainer.style.display === 'none') {
+                    console.log('Video timeout - showing image');
+                    showImage();
+                }
+            }, 5000);
+        }
+
+        // Function to check if image is available
+        function checkImageAvailability() {
+            const tempImg = new Image();
+            tempImg.onload = function() {
+                // Image loaded successfully
+                if (videoContainer.style.display === 'none') {
+                    showImage();
+                }
+            };
+            
+            tempImg.onerror = function() {
+                // Image failed to load
+                if (fallbackImage.classList.contains('show')) {
+                    showGradientBackground();
+                }
+            };
+            
+            tempImg.src = fallbackImage.src;
+        }
+
+        // Function to show video
+        function showVideo() {
+            videoContainer.style.display = 'block';
+            fallbackImage.classList.remove('show');
+            fallbackImage.classList.add('hidden');
+            illustration.style.background = '';
+        }
+
+        // Function to show image
+        function showImage() {
+            videoContainer.style.display = 'none';
+            fallbackImage.classList.remove('hidden');
+            fallbackImage.classList.add('show');
+            illustration.style.background = '';
+        }
+
+        // Function to show gradient background as last resort
+        function showGradientBackground() {
+            videoContainer.style.display = 'none';
+            fallbackImage.classList.remove('show');
+            fallbackImage.classList.add('hidden');
+            illustration.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }
+
+        // Monitor video and image elements
+        function startMonitoring() {
+            setInterval(() => {
+                // Check if video container is removed or hidden
+                if (!document.contains(videoContainer) || videoContainer.style.display === 'none') {
+                    checkImageAvailability();
+                    if (fallbackImage.src && !fallbackImage.classList.contains('show')) {
+                        showImage();
+                    }
+                } 
+                // Check if image is removed or hidden
+                else if (!document.contains(fallbackImage) || fallbackImage.classList.contains('hidden')) {
+                    showVideo();
+                }
+                // Check if both are available, prioritize video
+                else if (document.contains(videoContainer) && document.contains(fallbackImage)) {
+                    checkVideoAvailability();
+                }
+            }, 2000); // Check every 2 seconds
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            console.log('Page loaded - initializing...');
+            
+            // Show image first by default
+            showImage();
+            
+            // Try to load video after 2 seconds
+            setTimeout(() => {
+                console.log('Attempting to load video...');
+                videoContainer.style.display = 'block';
+                checkVideoAvailability();
+            }, 2000);
+            
+            // Start monitoring for changes
+            startMonitoring();
+        });
+
+        // Handle iframe load errors
+        youtubeVideo.addEventListener('error', function() {
+            showImage();
+        });
+
+        // Handle image load errors
+        fallbackImage.addEventListener('error', function() {
+            if (videoContainer.style.display === 'none') {
+                showGradientBackground();
+            }
+        });
+
+        function showLoginForm() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+        }
+
+        function togglePassword(element) {
+            const input = element.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                element.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                element.textContent = '👁️';
+            }
+        }
+
+        function showForgotPassword() {
+            alert('Fitur lupa password akan segera tersedia!');
+        }
+
+        // Handle form submissions
+        document.getElementById('loginFormElement').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            if (email && password) {
+                alert(`Login berhasil!\nEmail: ${email}`);
+            }
+        });
+
+        document.getElementById('registerFormElement').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            if (name && email && password) {
+                alert(`Registrasi berhasil!\nNama: ${name}\nEmail: ${email}`);
+                showLoginForm();
+            }
+        });
+    </script>
+</body>
+</html>

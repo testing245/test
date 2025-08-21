@@ -1,0 +1,260 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .illustration {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .desk-scene {
+            margin-bottom: 20px;
+        }
+
+        .person {
+            width: 80px;
+            height: 80px;
+            background: #f97316;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            margin: 0 auto 10px;
+            position: relative;
+        }
+
+        .person::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #fbbf24;
+            border-radius: 50%;
+        }
+
+        .laptop {
+            width: 120px;
+            height: 80px;
+            background: #6b7280;
+            border-radius: 8px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .laptop::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 30px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .plants {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .plant {
+            width: 20px;
+            height: 30px;
+            background: #10b981;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .form-title {
+            color: #f97316;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #f97316;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f97316;
+            font-size: 18px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #f97316;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ea580c;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #6b7280;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: white;
+            color: #374151;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .google-btn:hover {
+            border-color: #d1d5db;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
+        }
+
+        .switch-form a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
